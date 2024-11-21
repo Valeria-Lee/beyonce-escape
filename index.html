@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escapa de Beyonce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">	
+   <link rel="stylesheet" href="estilos.css">  
+</head>
+<body>
+	<h1>Escapa de <img src="beyonce_txt.png" id="title-img"></h1>
+    <div id="game-area">
+        <div id="player" class="personaje"></div>
+        <div id="beyonce" class="personaje"></div>
+    </div>
+    <div id="music-options">
+    <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="song-title">
+    Sin cancion seleccionada
+    </button>
+    <ul class="dropdown-menu">
+    <li><button class="dropdown-item" type="button" id="single-song">Single Ladies - Beyonce</button></li>
+    <li><button class="dropdown-item" type="button" id="halo-song">Halo - Beyonce</button></li>
+    <li><button class="dropdown-item" type="button" id="say-song">Say My Name - Destiny's Child</button></li>
+    </ul>
+    </div>
+    <button type="button" class="btn btn-outline-success" id="play-btn">Play</button>
+    <button type="button" class="btn btn-outline-danger" id="pause-btn">Pause</button>
+    <audio src=""></audio>
+    </div>
+	<div id="thanks-screen" class="screen">
+		<h2>Casi no la cuentas</h2>
+		<img src="beyonce_ganadora.jpg">
+		<img src="grammy_accept.jpg" id="pov-grammy">
+		<p>Te escapaste</p>
+	</div>
+    <div id="losing-screen" class="screen">
+      	<h2>Perdiste!</h2>
+      	<img src="chill_guy.jpg">
+      	<p>pero eres un chico tranquilo, entonces, no hay problema</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+    <script src="audio-choice.js"></script>
+</body>
+</html>

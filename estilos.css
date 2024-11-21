@@ -1,0 +1,47 @@
+#game-area {
+    background-image: url('tiles.jpg');
+    background-size: cover;
+    border: 5px solid #13131a;
+    height: 800px;
+    position: relative;
+    width: 800px;
+}
+
+#title-img {
+	width: 8vh;
+}
+
+.personaje {
+    height: 100px;
+    position: absolute;
+    width: 100px;
+}
+
+#player {
+    background-image: url('grammy.png');
+    background-size: cover;
+}
+
+#beyonce {
+    background-image: url('beyonce.png');
+    background-size: cover;
+}
+
+#music-options > * {
+    display: inline-flex;
+    margin: 1vh;
+}
+
+.screen {
+	display:none;
+    background-color:#eaeded;
+    text-align: center;
+}
+
+#pov-grammy {
+	width:32vh;
+}
+
+.screen > img {
+    width:20vh;
+}
