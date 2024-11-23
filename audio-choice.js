@@ -12,7 +12,6 @@ buttons.forEach( button => {
   button.addEventListener("click", () => {
     selected_song = button.id
     selected_title = button.innerText
-    console.log(selected_song)
   })
 })
 

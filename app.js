@@ -115,19 +115,14 @@ function breakRecord(event) {
 	let dif = 100
 	let clickPosX = event.clientX;
 	let clickPosY = event.clientY;
-	console.log(`CORD: ${clickPosX}, ${clickPosY}`)
-	// perdon profe por esto.
 	if (beyoncePosition.x-dif <= clickPosX && clickPosX <= beyoncePosition.x+dif && beyoncePosition.y-dif <= clickPosY && clickPosY <= beyoncePosition.y+dif) {
 		console.log(beyoncePosition.x, beyoncePosition.y) 
 		recordImg.style.left = `${beyoncePosition.x}px`
 		recordImg.style.top = `${beyoncePosition.y}px`
 		gameArea.appendChild(recordImg)
-		console.log(recordImg)
-		playRecordAnim()
 		setTimeout(() => {
 		window.location.href="win_page.html"
 		},2500)
-		// alert("Ya ganaste!!")
 	}
 }
 
