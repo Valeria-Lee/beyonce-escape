@@ -6,113 +6,135 @@ const thankScr = document.querySelector('#thanks-screen')
 
 const losingScr = document.querySelector('#losing-screen')
 
-const playerSpeed = 35
-const beyonceSpeed =  0.5//1.5
+const gamePauseBtn = document.querySelector('#pause-btn')
 
-let isPlaying = true
-let playerPosition = { x: 0, y: 0 }
-let beyoncePosition = { x: 300, y: 300 }
+				let paused = false
 
-const recordImg = document.createElement("img")
-recordImg.style.width = "50px"
-recordImg.style.position = "absolute"
+				const playerSpeed = 35
+				const beyonceSpeed =  0.5//1.5
 
-/**
- * Esta función detecta cuando Beyonce ya te alcanzó
- */
-function detectCollision () {
-    const deltaX = Math.abs(playerPosition.x - beyoncePosition.x)
-    const deltaY = Math.abs(playerPosition.y - beyoncePosition.y)
+				let isPlaying = true
+				let playerPosition = { x: 0, y: 0 }
+				let beyoncePosition = { x: 300, y: 300 }
 
-    if (deltaX <= 60 && deltaY <= 60) {
-		thankScr.style.display = "block"
-		if(confirm('Beyonce te atrapó! Rápido, dale las gracias para salvar tu vida')) {
-            playerPosition.x = Math.floor(Math.random() * (gameArea.clientWidth - 70))
-            playerPosition.y = Math.floor(Math.random() * (gameArea.clientHeight - 70))
-		thankScr.style.display = "none"
-		} else {
-	    losingScr.style.display = "block";
-	    alert('Perdiste :(')
-            isPlaying = false
-            audio.pause()
-	}
-    }
-}
+				const recordImg = document.createElement("img")
+				recordImg.style.width = "50px"
+				recordImg.style.position = "relative"
 
-function gameLoop () {
-    moveBeyonce()
-    requestAnimationFrame(gameLoop)
-}
+				/**
+				 * Esta función detecta cuando Beyonce ya te alcanzó
+				 */
+				function detectCollision () {
+					const deltaX = Math.abs(playerPosition.x - beyoncePosition.x)
+					const deltaY = Math.abs(playerPosition.y - beyoncePosition.y)
 
-function moveBeyonce () {
-    if (beyoncePosition.x < playerPosition.x) 
-        beyoncePosition.x += beyonceSpeed
-    else if (beyoncePosition.x > playerPosition.x)
-        beyoncePosition.x -= beyonceSpeed
+					if (deltaX <= 60 && deltaY <= 60) {
+						thankScr.style.display = "block"
+						if(confirm('Beyonce te atrapó! Rápido, dale las gracias para salvar tu vida')) {
+							playerPosition.x = Math.floor(Math.random() * (gameArea.clientWidth - 70))
+							playerPosition.y = Math.floor(Math.random() * (gameArea.clientHeight - 70))
+						} else {
+						thankScr.style.display = "none"
+						losingScr.style.display = "block";
+						alert('Perdiste :(')
+							isPlaying = false
+							audio.pause()
+					}
+					}
+				}
 
-    if (beyoncePosition.y < playerPosition.y) 
-        beyoncePosition.y += beyonceSpeed
-    else if (beyoncePosition.y > playerPosition.y)
-        beyoncePosition.y -= beyonceSpeed
+				function gameLoop () {
+					if (!paused) {
+						moveBeyonce()
+						requestAnimationFrame(gameLoop)
+					}
+				}
 
-    updatePosition()
-    if (isPlaying)
-        detectCollision()
-}
+				function moveBeyonce () {
+					if (beyoncePosition.x < playerPosition.x) 
+						beyoncePosition.x += beyonceSpeed
+			else if (beyoncePosition.x > playerPosition.x)
+				beyoncePosition.x -= beyonceSpeed
 
-function movePlayer (event) {
-    switch (event.key) {
-        case 'ArrowUp':
-            if (playerPosition.y >= 50) 
-                playerPosition.y -= playerSpeed
-            break
-        case 'ArrowDown':
-            if(playerPosition.y < gameArea.clientHeight - 70)
-                playerPosition.y += playerSpeed
-            break
-        case 'ArrowLeft':
-            if (playerPosition.x >= 50) 
-                playerPosition.x -= playerSpeed
-            break
-        case 'ArrowRight':
-            if(playerPosition.x < gameArea.clientWidth - 70)
-                playerPosition.x += playerSpeed
-            break
-    }
+			if (beyoncePosition.y < playerPosition.y) 
+				beyoncePosition.y += beyonceSpeed
+			else if (beyoncePosition.y > playerPosition.y)
+				beyoncePosition.y -= beyonceSpeed
 
-    updatePosition()
-}
+			updatePosition()
+			if (isPlaying)
+				detectCollision()
+		}
 
-function updatePosition () {
-    player.style.transform = `translate(${playerPosition.x}px, ${playerPosition.y}px)`
-    beyonce.style.transform = `translate(${beyoncePosition.x}px, ${beyoncePosition.y}px)`
-}
+		function movePlayer (event) {
+			switch (event.key) {
+				case 'ArrowUp':
+					if (playerPosition.y >= 50) 
+						playerPosition.y -= playerSpeed
+					break
+				case 'ArrowDown':
+					if(playerPosition.y < gameArea.clientHeight - 70)
+						playerPosition.y += playerSpeed
+					break
+				case 'ArrowLeft':
+					if (playerPosition.x >= 50) 
+						playerPosition.x -= playerSpeed
+					break
+				case 'ArrowRight':
+					if(playerPosition.x < gameArea.clientWidth - 70)
+						playerPosition.x += playerSpeed
+					break
+			}
 
-window.addEventListener('keydown', movePlayer)
-window.addEventListener('load', () => {
-	gameArea.addEventListener('click', breakRecord)
+			updatePosition()
+		}
+
+		function updatePosition () {
+			player.style.transform = `translate(${playerPosition.x}px, ${playerPosition.y}px)`
+			beyonce.style.transform = `translate(${beyoncePosition.x}px, ${beyoncePosition.y}px)`
+		}
+
+		window.addEventListener('keydown', movePlayer)
+		window.addEventListener('load', () => {
+			gamePauseBtn.addEventListener('click', pause)
+			gameArea.addEventListener('click', breakRecord)
 	gameLoop()
 })
+
+function pause() {
+	if (!paused) {
+		paused = true
+	} else {
+		paused = false
+		gameLoop()
+	}
+	console.log(paused)
+}
 
 function breakRecord(event) {
 	let dif = 100
 	let clickPosX = event.clientX;
 	let clickPosY = event.clientY;
 	console.log(`CORD: ${clickPosX}, ${clickPosY}`)
-
-	console.log(beyoncePosition.x, beyoncePosition.y)
 	// perdon profe por esto.
 	if (beyoncePosition.x-dif <= clickPosX && clickPosX <= beyoncePosition.x+dif && beyoncePosition.y-dif <= clickPosY && clickPosY <= beyoncePosition.y+dif) {
+		console.log(beyoncePosition.x, beyoncePosition.y) 
+		recordImg.style.left = `${beyoncePosition.x}px`
+		recordImg.style.top = `${beyoncePosition.y}px`
 		gameArea.appendChild(recordImg)
-		recordImg.style.left = `${beyoncePosition.X-10}px`;
-		recordImg.style.top = `${beyoncePosition.Y-10}px`; 
+		console.log(recordImg)
 		playRecordAnim()
-		// ganaste :)
+		setTimeout(() => {
+		window.location.href="win_page.html"
+		},2500)
+		// alert("Ya ganaste!!")
 	}
 }
 
 function playRecordAnim() {
-	for (i=0;i<4;i++){
+	for (i=0;i<3;i++){
+		setTimeout(() => {
 		recordImg.setAttribute("src", `record_${i}.png`)
+		}, 400)
 	}
 }

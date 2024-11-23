@@ -1,5 +1,5 @@
 #game-area {
-    background-image: url('tiles.jpg');
+	background-image: url('tiles.jpg');
     background-size: cover;
     border: 5px solid #13131a;
     height: 800px;
@@ -34,6 +34,9 @@
 
 .screen {
 	display:none;
+	position: fixed;
+	top:0;
+	right:80px;
     background-color:#eaeded;
     text-align: center;
 }
@@ -44,4 +47,8 @@
 
 .screen > img {
     width:20vh;
+}
+
+#container {
+	text-align:center;
 }
