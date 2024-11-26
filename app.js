@@ -6,7 +6,7 @@ const thankScr = document.querySelector('#thanks-screen')
 
 const losingScr = document.querySelector('#losing-screen')
 
-const gamePauseBtn = document.querySelector('#pause-btn')
+const gamePauseBtn = document.querySelector('#game-pause-btn')
 
 				let paused = false
 
@@ -120,9 +120,10 @@ function breakRecord(event) {
 		recordImg.style.left = `${beyoncePosition.x}px`
 		recordImg.style.top = `${beyoncePosition.y}px`
 		gameArea.appendChild(recordImg)
+		playRecordAnim()
 		setTimeout(() => {
 		window.location.href="win_page.html"
-		},2500)
+		},2000)
 	}
 }
 
